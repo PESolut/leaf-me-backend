@@ -4,7 +4,11 @@
   "description": "backend for leaf-me app to be used with client facing frontend and with resturant facing frontend",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql",
+    "start": "node server.js",
+    "test": "jest --runInBand",
+    "dev": "nodemon server.js"
   },
   "author": "Jahaad Petty",
   "license": "ISC",
