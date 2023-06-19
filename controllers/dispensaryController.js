@@ -1,5 +1,7 @@
 const express = require("express")
 const dispensary = express.Router()
+const storeItemController = require("./storeItemController")
+dispensary.use('/:dispensaryID/storeItems', storeItemController)
 
 const {getAllDispensaries, getOneDispensary, createDispensary, updateDispensary, deleteDispensary} = require('../queries/dispensaries.js')
 // validations
@@ -66,9 +68,5 @@ dispensary.delete("/:id", async (req, res) => {
         res.status(500).json({error: deletedDispensary.message})
     }
 })
-
-
-
-
 
 module.exports = dispensary

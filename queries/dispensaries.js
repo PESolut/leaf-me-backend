@@ -64,7 +64,7 @@ const updateDispensary = async (dispensary, idVal) => {
 const deleteDispensary = async (idVal) => {
   try {
     const deletedDispensary = await db.one(
-      "DELETE FROM snacks WHERE id=$1 RETURNING *",
+      "DELETE FROM dispensary WHERE id=$1 RETURNING *",
       idVal
     );
     return deletedDispensary;
