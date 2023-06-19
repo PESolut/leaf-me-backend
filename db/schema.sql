@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS dispensary;
 -- Create the dispensary table
 CREATE TABLE dispensary (
   ID SERIAL PRIMARY KEY,
-  Name VARCHAR(255) NOT NULL,
+  dispensary VARCHAR(255) NOT NULL,
   Image VARCHAR(255),
   deliveryFee DECIMAL(10, 2),
   minDeliveryTime INTEGER,
