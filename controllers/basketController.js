@@ -1,5 +1,7 @@
 const express = require("express")
 const basket = express.Router({mergeParams:true})
+const basketItemController = require('./basketItemController')
+basket.use('/:basket_id/storeitems', basketItemController)
 
 const {getAllBaskets, getOneBasket, createBasket, updateBasket, deleteBasket} = require('../queries/baskets.js')
 // validations

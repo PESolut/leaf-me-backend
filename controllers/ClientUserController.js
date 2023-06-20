@@ -2,6 +2,8 @@ const express = require("express")
 const clientUser = express.Router()
 const basketController = require("./basketController.js")
 clientUser.use('/:client_user_id/basket', basketController)
+const orderController = require("./orderController.js")
+clientUser.use('/:client_user_id/order', orderController)
 
 const {getAllClientUsers,  getOneClientUser, createClientUser, updateClientUser, deleteClientUser} = require('../queries/clientusers.js')
 // validations
