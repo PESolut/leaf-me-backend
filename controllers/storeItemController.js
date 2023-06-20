@@ -21,6 +21,7 @@ storeItem.get("/", async (req, res) => {
     }  
 })
 
+// THIS ROUTE WILL BE MOVE TO ANOTHER CONTROLLER THAT WILL BE INSIDE OF THE BASE ROUTE (SERVER/StoreItems/:id)
 // GET ONE
 storeItem.get("/:id", async (req, res) => {
     const { id } = req.params

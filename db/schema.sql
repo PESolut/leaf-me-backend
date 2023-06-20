@@ -43,8 +43,8 @@ DROP TABLE IF EXISTS basket;
 -- Create the Basket table
 CREATE TABLE basket (
   id SERIAL PRIMARY KEY,
-  client_user_ID INTEGER REFERENCES client_user(id),
-  dispensary_ID INTEGER REFERENCES dispensary(id)
+  client_user_id INTEGER REFERENCES client_user(id),
+  dispensary_id INTEGER REFERENCES dispensary(id)
 );
 
 DROP TABLE IF EXISTS basket_store_item;

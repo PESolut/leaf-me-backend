@@ -1,9 +1,9 @@
 const db = require("../db/dbConfig.js");
 
-const getAllBaskets = async () => {
+const getAllBaskets = async (client_user_id) => {
   try {
-    const allBaskets = await db.any("SELECT * FROM basket");
-    return allDispensaries;
+    const allBaskets = await db.any("SELECT * FROM basket WHERE client_user_id=$1", client_user_id);
+    return allBaskets;
   } catch (error) {
     return error;
   }
@@ -62,9 +62,9 @@ const deleteBasket = async (idVal) => {
 };
 
 module.exports = {
-  getAllStoreItems,
-  getOneStoreItem,
-  createStoreItem,
-  updateStoreItem,
-  deleteStoreItem
+  getAllBaskets,
+  getOneBasket,
+  createBasket,
+  updateBasket,
+  deleteBasket
 };

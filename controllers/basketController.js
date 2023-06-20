@@ -1,12 +1,15 @@
 const express = require("express")
-const basket = express.Router()
+const basket = express.Router({mergeParams:true})
 
 const {getAllBaskets, getOneBasket, createBasket, updateBasket, deleteBasket} = require('../queries/baskets.js')
 // validations
 
-// GET ALL
+// MAKE SURE TO CREATE A TRADITIONAL GET ALL INSIDE OF A HOST/ ROUTE
+
+// GET ALL STORE ITEMS THAT RELATES TO PARENT DISPENSARY
 basket.get("/", async (req, res) => {
-    const allBaskets = await getAllBaskets()
+    const { client_user_id } = req.params
+    const allBaskets = await getAllBaskets(client_user_id)
 
     if(allBaskets.length){
         res.status(200).json(allBaskets)
@@ -55,7 +58,7 @@ basket.put("/:id", async (req, res) => {
 })
 
 // DELETE 
-clientUser.delete("/:id", async (req, res) => {
+basket.delete("/:id", async (req, res) => {
     const { id } = req.params
     const deletedBasket = await deleteBasket(id)
 
