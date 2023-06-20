@@ -25,7 +25,7 @@ const createBasketItem = async (basket_item) => {
     const newBasketItem = await db.one(
       "INSERT INTO basket_store_item (Quantity, basket_id, store_item_id) VALUES ($1, $2, $3) RETURNING *",
       [
-        basket_item.Quantity,
+        basket_item.quantity,
         basket_item.basket_id,
         basket_item.store_item_id
       ]
@@ -41,7 +41,7 @@ const updateBasketItem = async (basket_item, idVal) => {
     const updatedBasketItem = await db.one(
       "UPDATE basket_store_item SET Quantity=$1, basket_id=$2, store_item_id=$3 WHERE id=$4 RETURNING *",
       [
-        basket_item.Quantity,
+        basket_item.quantity,
         basket_item.basket_id,
         basket_item.store_item_id,
         idVal

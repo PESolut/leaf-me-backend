@@ -23,7 +23,7 @@ const getOneOrder = async (idVal) => {
 const createOrder = async (order) => {
   try {
     const newOrder = await db.one(
-      "INSERT INTO store_item (total, status, client_user_id, dispensary_id) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO client_order (total, status, client_user_id, dispensary_id) VALUES ($1, $2, $3, $4) RETURNING *",
       [
         order.total,
         order.status,
@@ -37,16 +37,15 @@ const createOrder = async (order) => {
   }
 };
 
-const updateOrder = async (storeItem, idVal) => {
+const updateOrder = async (order, idVal) => {
   try {
     const updatedStoreItem = await db.one(
-      "UPDATE store_item SET Name=$1, Image=$2, Description=$3, Price=$4, dispensary_ID=$5 WHERE id=$6 RETURNING *",
+      "UPDATE client_order SET total=$1, status=$2, client_user_id=$3, dispensary_id=$4 WHERE id=$5 RETURNING *",
       [
-        storeItem.Name,
-        storeItem.Image,
-        storeItem.Description,
-        storeItem.Price,
-        storeItem.dispensary_ID,
+        order.total,
+        order.status,
+        order.client_user_id,
+        order.dispensary_id,
         idVal
       ]
     );
@@ -56,18 +55,22 @@ const updateOrder = async (storeItem, idVal) => {
   }
 };
 
-const deleteStoreItem = async (idVal) => {
+const deleteOrder = async (idVal) => {
   try {
-    const deletedStoreItem = await db.one(
-      "DELETE FROM store_item WHERE id=$1 RETURNING *",
+    const deletedOrder = await db.one(
+      "DELETE FROM client_order WHERE id=$1 RETURNING *",
       idVal
     );
-    return deletedStoreItem;
+    return deletedOrder;
   } catch (error) {
     return error;
   }
 };
 
 module.exports = {
-  getAllOrders
+  getAllOrders,
+  getOneOrder,
+  createOrder,
+  updateOrder,
+  deleteOrder
 };

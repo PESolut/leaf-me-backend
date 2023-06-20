@@ -1,5 +1,7 @@
 const express = require("express")
 const order = express.Router({mergeParams: true})
+const orderStoreItemController = require ('./orderStoreItemController')
+order.use('/:client_order_id/storeitems', orderStoreItemController)
 
 const {getAllOrders, getOneOrder, createOrder, updateOrder, deleteOrder} = require('../queries/orders.js')
 // validations
