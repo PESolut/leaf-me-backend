@@ -1,12 +1,17 @@
 const express = require("express")
-const storeItem = express.Router()
+const storeItem = express.Router({mergeParams: true})
 
 const {getAllStoreItems, getOneStoreItem, createStoreItem, updateStoreItem, deleteStoreItem} = require('../queries/storeitems.js')
 // validations
 
-// GET ALL
+
+// MAKE SURE TO CREATE A TRADITIONAL GET ALL INSIDE OF A HOST/STOREITEMS ROUTE
+
+// GET ALL STORE ITEMS THAT RELATES TO PARENT DISPENSARY
 storeItem.get("/", async (req, res) => {
-    const allStoreItems = await getAllStoreItems()
+    const { dispensary_id } = req.params
+    console.log('controller',req.params)
+    const allStoreItems = await getAllStoreItems(dispensary_id)
 
     if(allStoreItems.length){
         res.status(200).json(allStoreItems)

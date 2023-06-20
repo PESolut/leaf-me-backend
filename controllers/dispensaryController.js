@@ -1,7 +1,7 @@
 const express = require("express")
 const dispensary = express.Router()
 const storeItemController = require("./storeItemController")
-dispensary.use('/:dispensaryID/storeItems', storeItemController)
+dispensary.use('/:dispensary_id/storeitems', storeItemController)
 
 const {getAllDispensaries, getOneDispensary, createDispensary, updateDispensary, deleteDispensary} = require('../queries/dispensaries.js')
 // validations

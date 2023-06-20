@@ -1,9 +1,11 @@
 const db = require("../db/dbConfig.js");
 
-const getAllStoreItems = async () => {
+
+const getAllStoreItems = async (dispensary_ID) => {
   try {
-    const allDispensaries = await db.any("SELECT * FROM store_item");
-    return allDispensaries;
+    console.log(dispensary_ID)
+    const allStoreItems = await db.any("SELECT * FROM store_item WHERE dispensary_id=$1", dispensary_ID);
+    return allStoreItems;
   } catch (error) {
     return error;
   }
