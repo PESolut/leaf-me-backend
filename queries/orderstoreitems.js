@@ -23,7 +23,7 @@ const getOneOrderStoreItem = async (idVal) => {
 const createOrderStoreItem = async (orderStoreItem) => {
   try {
     const newStoreItem = await db.one(
-      "INSERT INTO store_item (quantity, client_order_id, store_item_id) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO order_store_item (quantity, client_order_id, store_item_id) VALUES ($1, $2, $3) RETURNING *",
       [
         orderStoreItem.quantity,
         orderStoreItem.client_order_id,
@@ -38,8 +38,8 @@ const createOrderStoreItem = async (orderStoreItem) => {
 
 const updateOrderStoreItem = async (orderStoreItem, idVal) => {
   try {
-    const updatedStoreItem = await db.one(
-      "UPDATE store_item SET Name=$1, Image=$2, Description=$3, Price=$4, dispensary_ID=$5 WHERE id=$6 RETURNING *",
+    const updatedOrderStoreItem = await db.one(
+      "UPDATE order_store_item SET quantity=$1, client_order_id=$2, store_item_id=$3 WHERE id=$4 RETURNING *",
       [
         orderStoreItem.quantity,
         orderStoreItem.client_order_id,
@@ -47,7 +47,7 @@ const updateOrderStoreItem = async (orderStoreItem, idVal) => {
         idVal
       ]
     );
-    return updatedStoreItem;
+    return updatedOrderStoreItem;
   } catch (error) {
     return error;
   }
@@ -56,7 +56,7 @@ const updateOrderStoreItem = async (orderStoreItem, idVal) => {
 const deleteOrderStoreItem = async (idVal) => {
   try {
     const deletedOrderStoreItem = await db.one(
-      "DELETE FROM store_item WHERE id=$1 RETURNING *",
+      "DELETE FROM order_store_item WHERE id=$1 RETURNING *",
       idVal
     );
     return deletedOrderStoreItem;
