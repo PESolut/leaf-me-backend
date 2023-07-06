@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors")
 const morgan = require("morgan")
+const bcrypt = require("bcrypt")
 const dispensaryController = require('./controllers/dispensaryController.js')
 const ClientUserController = require('./controllers/ClientUserController.js')
 

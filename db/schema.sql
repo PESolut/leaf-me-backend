@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS store_item;
 CREATE TABLE store_item (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
+  type VARCHAR(255) NOT NULL,
   image VARCHAR(255),
   description TEXT,
   price DECIMAL(10, 2),
@@ -36,7 +37,9 @@ CREATE TABLE client_user (
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255),
   latitude DECIMAL(9, 6),
-  longitude DECIMAL(9, 6)
+  longitude DECIMAL(9, 6),
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS basket;

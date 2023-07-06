@@ -1,11 +1,15 @@
 const express = require("express")
 const clientUser = express.Router()
+const { hashPass, verifyToken , userLogin} = require("../middleware/auth.js");
 const basketController = require("./basketController.js")
 clientUser.use('/:client_user_id/basket', basketController)
 const orderController = require("./orderController.js")
 clientUser.use('/:client_user_id/order', orderController)
 
-const {getAllClientUsers,  getOneClientUser, createClientUser, updateClientUser, deleteClientUser} = require('../queries/clientusers.js')
+
+const {getAllClientUsers,  getOneClientUser, createClientUser, updateClientUser, deleteClientUser} = require('../queries/clientusers.js');
+
+
 // validations
 
 // GET ALL
@@ -33,8 +37,8 @@ clientUser.get("/:id", async (req, res) => {
     }
 })
 
-// CREATE
-clientUser.post("/", async (req, res) => {
+// CREATE / REGISTER
+clientUser.post("/", hashPass, async (req, res) => {
     const newClientUser = await createClientUser(req.body)
 
     if(!newClientUser.message){
@@ -43,6 +47,18 @@ clientUser.post("/", async (req, res) => {
     else {
         res.status(500).json({error: newClientUser.message})
     }
+})
+
+// LOGIN
+clientUser.post("/login", userLogin, async (req, res) => {
+    req.body.token;
+    res
+      .status(200)
+      .json({
+        message: "You are signed in!",
+        token: req.body.token,
+        user_id: req.body["user_id"],
+      });
 })
 
 // UPDATE

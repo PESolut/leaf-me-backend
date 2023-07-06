@@ -20,13 +20,28 @@ const getOneClientUser = async (idVal) => {
 
 const createClientUser = async (clientUser) => {
   try {
+
+    // make this into a validation
+    // const existingUser = await db.one("SELECT * FROM client_user WHERE email=$1", clientUser.email);
+    // console.log(existingUser)
+    // if (existingUser) {
+    //   return 'Email already exists'
+    // } else {
+      
+    // }
+
+    
+
+
     const newClientUser = await db.one(
-      "INSERT INTO client_user (Name, Address, Latitude, Longitude) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO client_user (Name, Address, Latitude, Longitude, email, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [
-        clientUser.Name,
-        clientUser.Address,
-        clientUser.Latitude,
-        clientUser.Longitude
+        clientUser.name,
+        clientUser.address,
+        clientUser.latitude,
+        clientUser.longitude,
+        clientUser.email,
+        clientUser.password
       ]
     );
     return newClientUser;
@@ -38,12 +53,14 @@ const createClientUser = async (clientUser) => {
 const updateClientUser = async (clientUser, idVal) => {
   try {
     const updatedClientUser = await db.one(
-      "UPDATE client_user SET Name=$1, Address=$2, latitude=$3, longitude=$4 WHERE id=$5 RETURNING *",
+      "UPDATE client_user SET Name=$1, Address=$2, latitude=$3, longitude=$4 WHERE id=$7 RETURNING *",
       [
         clientUser.Name,
         clientUser.Address,
         clientUser.Latitude,
         clientUser.Longitude,
+        clientUser.email,
+        clientUser.password,
         idVal
       ]
     );
@@ -65,7 +82,18 @@ const deleteClientUser = async (idVal) => {
   }
 };
 
+const getLoginByEmail = async (email) => {
+  try {
+    const loginCredentials = await db.one("SELECT * FROM client_user WHERE email=$1", email);
+    return loginCredentials;
+  } catch (error) {
+    return error;
+  }
+}
+
+
 module.exports = {
+  getLoginByEmail,
   getAllClientUsers,
   getOneClientUser,
   createClientUser,
