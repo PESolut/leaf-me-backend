@@ -18,7 +18,7 @@ VALUES
 INSERT INTO store_item (name, type, image, description, price, dispensary_ID)
 VALUES
   ('Item 1', 'flower', 'item1.jpg', 'Description for Item 1', 9.99, 1),
-  ('Item 2', 'flower', 'item2.jpg', 'Description for Item 2', 12.99, 1),
+  ('Item 2', 'edible', 'item2.jpg', 'Description for Item 2', 12.99, 1),
   ('Item 3', 'flower', 'item3.jpg', 'Description for Item 3', 6.99, 2);
 
 -- Insert example data into the client_user table
