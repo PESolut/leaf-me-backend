@@ -1,6 +1,6 @@
 const express = require("express")
 const clientUser = express.Router()
-const { hashPass, verifyToken , userLogin} = require("../middleware/auth.js");
+const { hashPass, verifyToken , userLogin, doesAccountExist} = require("../middleware/auth.js");
 const basketController = require("./basketController.js")
 clientUser.use('/:client_user_id/basket', basketController)
 const orderController = require("./orderController.js")
@@ -25,7 +25,7 @@ clientUser.get("/", async (req, res) => {
 })
 
 // GET ONE
-clientUser.get("/:id", async (req, res) => {
+clientUser.get("/:id", verifyToken, async (req, res) => {
     const { id } = req.params
     const oneClientUser = await getOneClientUser(id)
 
@@ -38,7 +38,7 @@ clientUser.get("/:id", async (req, res) => {
 })
 
 // CREATE / REGISTER
-clientUser.post("/", hashPass, async (req, res) => {
+clientUser.post("/", hashPass, doesAccountExist, async (req, res) => {
     const newClientUser = await createClientUser(req.body)
 
     if(!newClientUser.message){
@@ -58,6 +58,7 @@ clientUser.post("/login", userLogin, async (req, res) => {
         message: "You are signed in!",
         token: req.body.token,
         user_id: req.body["user_id"],
+        name: req.body.name
       });
 })
 
