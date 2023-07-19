@@ -1,5 +1,13 @@
 const db = require("../db/dbConfig.js");
 
+const getTrueAllStoreItems = async () => {
+  try {
+    const allStoreItems = await db.any("SELECT * from store_item");
+    return allStoreItems
+  } catch (error) {
+    return error
+  }
+}
 
 const getAllStoreItems = async (dispensary_ID) => {
   try {
@@ -70,6 +78,7 @@ const deleteStoreItem = async (idVal) => {
 };
 
 module.exports = {
+  getTrueAllStoreItems,
   getAllStoreItems,
   getOneStoreItem,
   createStoreItem,

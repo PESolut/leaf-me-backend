@@ -21,10 +21,10 @@ const getOneBasket = async (idVal) => {
 const createBasket = async (basket) => {
   try {
     const newBasket = await db.one(
-      "INSERT INTO basket (client_user_ID, dispensary_ID) VALUES ($1, $2) RETURNING *",
+      "INSERT INTO basket (client_user_id, dispensary_id) VALUES ($1, $2) RETURNING *",
       [
-        basket.client_user_ID,
-        basket.dispensary_ID,
+        basket.client_user_id,
+        basket.dispensary_id,
       ]
     );
     return newBasket;
@@ -36,7 +36,7 @@ const createBasket = async (basket) => {
 const updateBasket = async (basket, idVal) => {
   try {
     const updatedBasket = await db.one(
-      "UPDATE basket SET client_user_ID=$1, dispensary_ID=$2 WHERE $3 RETURNING *",
+      "UPDATE basket SET client_user_ID=$1, dispensary_ID=$2 WHERE id=$3 RETURNING *",
       [
         basket.client_user_ID,
         basket.dispensary_ID,
@@ -52,7 +52,7 @@ const updateBasket = async (basket, idVal) => {
 const deleteBasket = async (idVal) => {
   try {
     const deletedStoreItem = await db.one(
-      "DELETE FROM store_item WHERE id=$1 RETURNING *",
+      "DELETE FROM basket WHERE id=$1 RETURNING *",
       idVal
     );
     return deletedStoreItem;

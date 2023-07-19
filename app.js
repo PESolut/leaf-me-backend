@@ -2,9 +2,9 @@
 const express = require("express");
 const cors = require("cors")
 const morgan = require("morgan")
-const bcrypt = require("bcrypt")
 const dispensaryController = require('./controllers/dispensaryController.js')
 const ClientUserController = require('./controllers/ClientUserController.js')
+const allStoreItemsController = require("./controllers/allStoreItemsController.js")
 
 // CONFIGURATION
 const app = express();
@@ -17,6 +17,7 @@ app.use(cors())
 // CONTROLLERS
 app.use('/dispensary', dispensaryController)
 app.use('/users', ClientUserController)
+app.use('/allstoreitems', allStoreItemsController)
 
 // ROUTES
 app.get("/", (req, res) => {
