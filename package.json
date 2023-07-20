@@ -6,6 +6,7 @@
   "scripts": {
     "dbinit": "psql -U postgres -f db/schema.sql",
     "dbseed": "psql -U postgres -f db/seed.sql",
+    "dbmore": "psql -U postgres -f db/moreItems.sql",
     "start": "node server.js",
     "test": "jest --runInBand",
     "dev": "nodemon server.js"
