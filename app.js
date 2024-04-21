@@ -4,7 +4,8 @@ const cors = require("cors")
 const morgan = require("morgan")
 const dispensaryController = require('./controllers/dispensaryController.js')
 const ClientUserController = require('./controllers/ClientUserController.js')
-const allStoreItemsController = require("./controllers/allStoreItemsController.js")
+const allStoreItemsController = require("./controllers/allStoreItemsController.js");
+const { getLocalIpAddress } = require("./localAddress.js");
 
 // CONFIGURATION
 const app = express();
