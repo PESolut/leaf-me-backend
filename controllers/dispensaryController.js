@@ -7,15 +7,32 @@ const {getAllDispensaries, getOneDispensary, createDispensary, updateDispensary,
 // validations
 
 // GET ALL
+// search queries for searchBar here
 dispensary.get("/", async (req, res) => {
-    const allDispensaries = await getAllDispensaries()
+    // conditon checking if search query is present; if not; go the default route
+    // if present; do something
 
-    if(allDispensaries.length){
-        res.status(200).json(allDispensaries)
+    const {search} = req.query
+
+    if(search){
+        // do something
+        const allDispensaries = await getAllDispensaries(search)
+        if(allDispensaries.length >= 0){
+            res.status(200).json(allDispensaries)
+        } else {
+            res.status(500).json({Error: "error while fetching filtered data"})
+        }  
+    } else {
+        // default route
+        const allDispensaries = await getAllDispensaries()
+        if(allDispensaries.length){
+            res.status(200).json(allDispensaries)
+        } else {
+            res.status(500).json({Error: "error while fetching data"})
+        }  
     }
-    else{
-        res.status(500).json({Error: "server error"})
-    }  
+
+    
 })
 
 // GET ONE

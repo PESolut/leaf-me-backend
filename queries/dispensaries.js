@@ -1,12 +1,18 @@
 const db = require("../db/dbConfig.js");
 
-const getAllDispensaries = async () => {
+const getAllDispensaries = async (search) => {
   try {
-    const allDispensaries = await db.any("SELECT * FROM dispensary");
-    return allDispensaries;
+    if (!search){
+      const allDispensaries = await db.any("SELECT * FROM dispensary");
+      return allDispensaries;
+    } else {
+      const filteredDispensaries = await db.any("SELECT * FROM dispensary WHERE LOWER(name) LIKE $1 OR LOWER(address) LIKE $1",[`%${search.toLowerCase()}%`])
+      return filteredDispensaries
+    }
   } catch (error) {
     return error;
   }
+  
 };
 
 const getOneDispensary = async (idVal) => {
